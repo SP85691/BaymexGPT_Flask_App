@@ -9,7 +9,12 @@ from passlib.hash import bcrypt
 from email.message import EmailMessage
 import cv2 
 import os
+import dotenv
 
+dotenv.load_dotenv()
+
+username = os.getenv("Email")
+password = os.getenv("Password")
 
 auth = Blueprint('auth', __name__)
 
@@ -24,7 +29,7 @@ def mail(name, email):
 
     server = smtplib.SMTP('smtp.gmail.com', 587)
     server.starttls()
-    server.login("s.pratap.4155@gmail.com", "rvteiugmcykpqxsr")
+    server.login(username, password)
     
     msg = EmailMessage()
     msg['Subject'] = SUBJECT
@@ -49,7 +54,7 @@ def forgotten_mail(name, email):
 
     server = smtplib.SMTP('smtp.gmail.com', 587)
     server.starttls()
-    server.login("s.pratap.4155@gmail.com", "rvteiugmcykpqxsr")
+    server.login(username, password)
     
     msg = EmailMessage()
     msg['Subject'] = SUBJECT

@@ -3,8 +3,12 @@ import os
 import numpy as np
 import base64
 import cv2
+import dotenv
 
-OPENAI_API_KEY = "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"
+dotenv.load_dotenv()
+
+# Import data from .env file using os
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
 def openai_prompt(question):
     openai.api_key = OPENAI_API_KEY

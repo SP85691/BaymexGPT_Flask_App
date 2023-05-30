@@ -7,6 +7,12 @@ from email.message import EmailMessage
 from app.blueprints.openai import openai_prompt, text_to_image_converter
 import pyttsx3
 import os
+import dotenv
+
+dotenv.load_dotenv()
+
+username = os.getenv("Email")
+password = os.getenv("Password")
 
 main = Blueprint('main', __name__)
 
@@ -20,7 +26,7 @@ def query_mail(name, email, text):
 
     server = smtplib.SMTP('smtp.gmail.com', 587)
     server.starttls()
-    server.login("s.pratap.4155@gmail.com", "rvteiugmcykpqxsr")
+    server.login(username, password)
     
     # to the owner
     msg = EmailMessage()
@@ -94,7 +100,7 @@ def text_to_image_response():
     except Exception as e:
         # Handle the error or display an error message
         error_message = str(e)
-        error = 'Wrong Prompt Attempted'
+        error = e
         return render_template('error.html', error=error)
     return redirect(url_for("main.text_to_image"))
 

@@ -36,6 +36,7 @@ The project follows the following file directory structure:
 ```css
 BaymexGPT_Flask_App
 ├── app
+│   ├── .env
 │   ├── blueprints
 │   │   ├── auth.py
 │   │   ├── main.py
@@ -78,7 +79,6 @@ BaymexGPT_Flask_App
 ├── instance
 │   └── gpt.sqlite3
 ├── venv
-├── .env
 ├── .gitignore
 ├── requirements.txt
 ├── package.json
