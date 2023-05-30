@@ -124,7 +124,7 @@ The BaymexGPT Flask web application was developed using the following technologi
 
 ## Author
 
-This project was created by [Surya Pratap](https://github.com/SP85691/BaymexGPT_Flask_App).
+This project was created by [Surya Pratap](https://github.com/SP85691/).
 
 ## Date of Publication
 
