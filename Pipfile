@@ -1,0 +1,26 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+flask = "*"
+flask-admin = "*"
+flask-login = "*"
+flask-sqlalchemy = "*"
+sqlalchemy = "*"
+pydantic = "*"
+openai = "*"
+flask-mail = "*"
+passlib = "*"
+werkzeug = "*"
+bcrypt = "*"
+flask-ngrok = "*"
+numpy = "*"
+opencv-python = "*"
+pyttsx3 = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.11"

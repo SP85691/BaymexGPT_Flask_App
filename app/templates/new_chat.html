@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="right2 w-full flex-col flex items-center h-fit" style="display: none;">
+    <div class="box1 m-auto text-gray-900 text-lg flex justify-start w-[50vw] items-center space-x-6 py-7 p-2">
+        <img src="https://chat.openai.com/_next/image?url=https%3A%2F%2Flh3.googleusercontent.com%2Fa%2FAGNmyxbNLJfv4HE1yHnJdVEjSed3ppxqf9S1dkXxMLschA%3Ds96-c&w=48&q=75"
+            alt="" height="40px" width="40px" class="w-9 h-9 border rounded-full" />
+        <div id="question">. . .</div>
+    </div>
+
+    <div class="box2 flex bg-gray-300 text-gray-900 text-lg font-mono justify-center w-full items-center space-x-6 py-7">
+        <div class="box w-[50vw] flex justify-start space-x-6 p-2">
+            <img class="w-9 h-9" src="../static/assets/logo.png" alt="" />
+            <div class="flex space-y-4 p-2">
+                <div id="answer" class="mb-2">...
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="relative input w-full text-center mt-[32%]">
+        <input class="w-[65%] p-3 bg-gray-200 text-gray-900 rounded-md" placeholder="Ask Anything 😉!" type="text"
+            name="text" id="question" />
+        <button id="sendButton" type="button" class="relative text-gray-900 justify-center items-center -left-9">
+            <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round"
+                stroke-linejoin="round" class="h-4 w-4 mr-1" height="1em" width="1em"
+                xmlns="http://www.w3.org/2000/svg">
+                <line x1="22" y1="2" x2="11" y2="13"></line>
+                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+            </svg>
+        </button>
+        <div class="text-xs mt-2 text-gray-900">
+            Free Chatting Platform. VartalapGPT may produce inaccurate
+            information about people, places, or facts.
+            <a href="{{ url_for('main.about') }}"><u><b>BaymexGPT May 18 Version</b></u></a>.
+        </div>
+    </div>
+</div>
+{% endblock %}
