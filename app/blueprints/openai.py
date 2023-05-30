@@ -4,7 +4,7 @@ import numpy as np
 import base64
 import cv2
 
-OPENAI_API_KEY = "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"
+OPENAI_API_KEY = "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"
 
 def openai_prompt(question):
     openai.api_key = OPENAI_API_KEY
