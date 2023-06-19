@@ -93,7 +93,7 @@ BaymexGPT_Flask_App
   ![1685432908677](image/README/1685432908677.png)
 * Text-to-image generation tool.
 
-  ![1685436802636](image/README/1685436802636.png)
+  ![1685441313668](image/README/1685441313668.png)
 * Login/register system for user authentication.
 
   ![1685432197129](image/README/1685432197129.png)

@@ -10,6 +10,7 @@ dotenv.load_dotenv()
 # Import data from .env file using os
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
+
 def openai_prompt(question):
     openai.api_key = OPENAI_API_KEY
     response = openai.Completion.create(
@@ -25,12 +26,13 @@ def openai_prompt(question):
     return response["choices"][0]["text"]
 
 def text_to_image_converter(text):
+        print(OPENAI_API_KEY)
         openai.api_key = OPENAI_API_KEY
         response = openai.Image.create(
-              prompt = text,
-              n = 1,
-              size = "1024x1024",
-              response_format = "b64_json"
+                prompt = text,
+                n = 1,
+                size = "1024x1024",
+                response_format = "b64_json"
         )
         im_bytes = base64.b64decode(response['data'][0]['b64_json'])
         im_arr = np.frombuffer(im_bytes, dtype=np.uint8)
