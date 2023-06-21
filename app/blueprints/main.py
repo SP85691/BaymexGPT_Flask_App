@@ -74,7 +74,8 @@ def chat_response():
         # find the same question in DB
         chat = Chat.query.filter_by(question=msg).first()
         if chat:
-            return chat.answer
+            # return chat.answer, convert_text_to_speech(chat.answer)
+            return chat.answer 
         
         else:
             input = msg
