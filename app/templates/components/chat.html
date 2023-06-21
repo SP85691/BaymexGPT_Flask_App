@@ -27,8 +27,8 @@
 					<div class="card-header msg_head">
 						<div class="d-flex bd-highlight">
 							<div class="img_cont">
-								<img src="{{ url_for('static', filename=('assets/logo.png')) }}"
-									class="rounded-circle user_img">
+								<img src="{{ url_for('static', filename=('assets/logo_2.png')) }}"
+									class="rounded-circle user_img w-full">
 								<span class="online_icon"></span>
 							</div>
 							<div class="user_info">
@@ -86,14 +86,12 @@
 					type: "POST",
 					url: "/chat",
 				}).done(function (data) {
-					var botHtml = '<div class="d-flex justify-content-start mb-4"><div class="img_cont_msg"><img src="../../static/assets/logo.png" class="rounded-circle user_img_msg"></div><div class="msg_cotainer">' + data + '<span class="msg_time">' + str_time + '</span></div></div>';
+					var botHtml = '<div class="d-flex justify-content-start mb-4"><div class="img_cont_msg"><img src="../../static/assets/logo_2.png" class="rounded-circle user_img_msg"></div><div class="msg_cotainer">' + data + '<span class="msg_time">' + str_time + '</span></div></div>';
 					$("#messageFormeight").append($.parseHTML(botHtml));
 				});
 				event.preventDefault();
 			});
 		});
 	</script>
-
 </body>
-
 </html>

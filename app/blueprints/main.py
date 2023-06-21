@@ -74,7 +74,7 @@ def chat_response():
         # find the same question in DB
         chat = Chat.query.filter_by(question=msg).first()
         if chat:
-            return chat.answer, convert_text_to_speech(chat.answer, voice='en-us', speed=150)
+            return chat.answer
         
         else:
             input = msg
@@ -83,7 +83,6 @@ def chat_response():
             db.session.add(new_chat)
             db.session.commit()
             answer = response
-            convert_text_to_speech(answer, voice='en-us', speed=150)
             return openai_prompt(input)
         
 @main.route('/text_to_image')
@@ -130,7 +129,7 @@ def index_post():
         name = contactDet['name']
         email = contactDet['email']
         message = contactDet['message']
-        prompt = f"Now, Make the mail when a user - {name} has some query regarding {message}, while he or she is getting some issues while using the Website. Now We need to provide him or her assurance that Don't worry we'll fix your problem in 2-3 working days. write in simple to understand and short to read. the sender's name is BaymexGPT BOT"
+        prompt = f"Write a mail when a user - {name} has some query regarding {message}, while he or she is getting some issues while using the Website. Now We need to provide him or her assurance that Don't worry we'll fix your problem in 2-3 working days. write in simple to understand and short to read. the sender's name is BaymexGPT BOT. Some other details of our websites are: This Website works on two things first [generate images] and second is [chatbot facility]. Right it is free of cost. Application name - BaymexGPT. Owner Name - Surya Pratap"
         response = openai_prompt(prompt)
         query_mail(name, email, response, message)
     
