@@ -1,31 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="shortcut icon" href="{{ url_for('static', filename=('assets/logo.png')) }}" type="image/x-icon">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link
+      rel="shortcut icon"
+      href="{{ url_for('static', filename=('assets/logo.png')) }}"
+      type="image/x-icon"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <!-- Link Google Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,100&display=swap"
-        rel="stylesheet" />
-    
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,100&display=swap"
+      rel="stylesheet"
+    />
+
     <!-- Link With Taiwind-CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename=('css/main.css')) }}" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename=('css/main.css')) }}"
+    />
 
     <!-- Title -->
     {% block title %} {% endblock %}
-</head>
-<style>
-    body::-webkit-scrollbar{
-        width: 0.5rem;
+  </head>
+  <style>
+    body::-webkit-scrollbar {
+      width: 0.3rem;
+      /* background-color: #6366f1; */
     }
-</style>
-<body class="bg-white">
+
+    /* I want to change the color of scroll button to #6366F!*/
+    body::-webkit-scrollbar-thumb {
+      background-color: #6366f1;
+    }
+
+  </style>
+  <body class="bg-white">
     {% block content %} {% endblock %}
 
     <script src="{{ url_for('static', filename=('js/scripts.js')) }}"></script>
-</body>
+  </body>
 </html>

@@ -21,12 +21,11 @@ auth = Blueprint('auth', __name__)
 def mail(name, email):
     otp = random.randint(100000,999999)
     
-    SUBJECT = "BaymexGPT Registration"
+    SUBJECT = "Welcome to BaymexGPT - Your Gateway to a World of AI-Powered Services!"
     FROM = "s.pratap.4155@gmail.com"
     TO = email
-    TEXT = f"Dear {name},\nThank you for becoming a part of our family.\nYou have registered by this email id - {email}"
+    TEXT = f"Dear {name}, \nWelcome to BaymexGPT! We are thrilled to have you join our family. Thank you for registering with us using the email address {email}.\n\nAt BaymexGPT, we are dedicated to providing you with exceptional AI-powered services. Our platform offers two remarkable features: Chatbot and Image Generation. Whether you need interactive conversational support or stunning image creation, we've got you covered!\n\nWe understand the importance of safeguarding your personal information. Rest assured, we have implemented robust security measures to ensure that your data remains private and protected. Your trust is our top priority.\n\nWith BaymexGPT, you can enjoy a seamless user experience, exploring the vast possibilities of artificial intelligence. We believe in simplicity without compromising on quality, making your journey with us both impressive and effortless.\n\nOnce again, thank you for choosing BaymexGPT. We are excited to embark on this AI-powered adventure with you. Should you have any questions or need assistance, our friendly support team is just a message away.\n\nBest regards,\nBaymexGPT Bot"
     
-
     server = smtplib.SMTP('smtp.gmail.com', 587)
     server.starttls()
     server.login(username, password)
@@ -46,15 +45,36 @@ def mail(name, email):
 def forgotten_mail(name, email):
     otp = random.randint(100000,999999)
     
-    SUBJECT = "Verify Email for Regenerate your password!"
+    SUBJECT = "Password Reset Confirmation - BaymexGPT"
     FROM = "s.pratap.4155@gmail.com"
     TO = email
-    TEXT = f"Dear {name},\nRecently, You have reset your password.\nKindly Verify youself by click on this link - 'http://127.0.0.1:5000/auth/login'"
-    
+    TEXT = f"Dear Surya Pratap,\nWe have received a request to reset your password for your BaymexGPT account. We understand that forgetting passwords happens to the best of us, and we are here to assist you in regaining access to your account.\n\nTo proceed with resetting your password, please click on the following link: [Password Reset Link].\n\nUpon clicking the link, you will be directed to a secure page where you can create a new password for your BaymexGPT account. Please ensure that your new password is unique and easy for you to remember, but difficult for others to guess.\n\nIf you did not initiate this password reset request, kindly ignore this email. Rest assured, your account remains secure, and no changes have been made.\n\nYour privacy and security are of utmost importance to us. If you encounter any issues or require further assistance, please do not hesitate to reach out to our dedicated support team. We are here to help you navigate through any challenges.\n\nThank you for choosing BaymexGPT. We appreciate your patience and understanding as we assist you in restoring access to your account.\n\nBest regards,\nBaymexGPT Bot"
 
     server = smtplib.SMTP('smtp.gmail.com', 587)
     server.starttls()
     server.login(username, password)
+    
+    msg = EmailMessage()
+    msg['Subject'] = SUBJECT
+    msg['From'] = FROM
+    msg['To'] = TO
+    msg.set_content(TEXT)
+    server.send_message(msg)
+    server.quit()
+
+    return "Success"
+
+def delete_user_mail(name, email):
+    otp = random.randint(100000,999999)
+    
+    SUBJECT = "Account Deletion Confirmation - BaymexGPT"
+    FROM = "s.pratap.4155@gmail.com"
+    TO = email
+    TEXT = f"Dear {name},\nWe regret to inform you that your account has been successfully deleted from BaymexGPT. We acknowledge your decision and respect your choice.\n\nWe sincerely thank you for being a part of our community and for the trust you placed in us during your time with BaymexGPT. We hope our services were able to meet your expectations, and we apologize for any inconvenience caused.\n\nIf you have any feedback or suggestions regarding your experience with us, we would greatly appreciate your valuable insights. Your input plays a crucial role in helping us improve our services for the benefit of our users.\n\nShould you ever reconsider, remember that you are always welcome back to the BaymexGPT family. We are constantly evolving and introducing new features to enhance your AI-powered journey.If you have any remaining concerns or require further assistance, please don't hesitate to reach out to our support team. We are here to assist you.\n\nOnce again, thank you for being a part of BaymexGPT. We wish you the very best in all your future endeavors.\n\n--\nWarm regards,\nBaymexGPT Bot"
+
+    server = smtplib.SMTP('smtp.gmail.com', 587)
+    server.starttls()
+    server.login("s.pratap.4155@gmail.com", "rvteiugmcykpqxsr")
     
     msg = EmailMessage()
     msg['Subject'] = SUBJECT
@@ -78,29 +98,6 @@ def setting():
                            city = current_user.city,
                            company=current_user.company_or_school)
 
-def delete_user_mail(name, email):
-    otp = random.randint(100000,999999)
-    
-    SUBJECT = "BaymexGPT Registration"
-    FROM = "s.pratap.4155@gmail.com"
-    TO = email
-    TEXT = f"Dear {name},\nThank you for using our website and being a part of our family.\nYou have deleted your account!\nPlease send us feedback that why you have deleted your account!\n\n\n--\nThanks & Regards\nSurya Pratap (Owner of BaymexGPT)\ns.pratap.4155@gmail.com"
-    
-
-    server = smtplib.SMTP('smtp.gmail.com', 587)
-    server.starttls()
-    server.login("s.pratap.4155@gmail.com", "rvteiugmcykpqxsr")
-    
-    msg = EmailMessage()
-    msg['Subject'] = SUBJECT
-    msg['From'] = FROM
-    msg['To'] = TO
-    msg.set_content(TEXT)
-    server.send_message(msg)
-    # server.sendmail('support@baymexgpt.com', email, f"Dear {name},\nThank you for becoming a part of our family.\nYou have registered by this email id - {email}")
-    server.quit()
-
-    return "Success"
 
 @auth.route('/login')
 def login():
@@ -117,8 +114,11 @@ def login_post():
             login_user(user)  # Log in the user
             session.permanent = True
             return redirect(url_for('main.index'))
-    
-    flash('Invalid username or password')
+
+        elif username != user or bcrypt.verify(password, user.password):
+            flash('Invalid username or password')
+            return redirect(url_for('auth.login'))
+        
     return redirect(url_for('auth.login'))
 
 @auth.route('/signup')
@@ -136,7 +136,7 @@ def signup_post():
 
         user_email = User.query.filter_by(email=email).first()
         user_name = User.query.filter_by(username=username).first()
-        if user_email and user_name:
+        if user_email or user_name:
             flash('This User already exists')
             return redirect(url_for('auth.signup'))
         

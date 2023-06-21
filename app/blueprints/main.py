@@ -16,12 +16,13 @@ password = os.getenv("Password")
 
 main = Blueprint('main', __name__)
 
-def query_mail(name, email, text):
+def query_mail(name, email, query, message):
     
     SUBJECT = "Request for the Query!"
     FROM = email
     TO = "s.pratap.4155@gmail.com"
-    TEXT = text
+    TEXT = query
+    OWNER_TEXT = f"Dear Sir,\nI hope this email finds you well. I wanted to bring to your attention a query we received from a user regarding their experience on our website. The user, [User's Name], has encountered an issue while using the website and has reached out for assistance.\n\nUser Details:\nName: [{name}\nEmail: {email}\nQuery: {message}\n\nWe understand the importance of providing prompt and effective support to our users. Rest assured, we are committed to resolving the user's problem within 2-3 working days. Our support team will thoroughly investigate the issue and work diligently to find a solution.\n\nWe kindly request your attention to this matter and any necessary action on your part. If there are any additional resources or expertise required, please let us know, and we will promptly address it.\n\nWe greatly appreciate your support and collaboration in ensuring the best user experience for our valued customers. We will keep you updated on the progress of resolving the user's query and provide any further information as needed.\n\nThank you for your prompt attention to this matter.\n\nBest regards,\nBaymexGPT BOT"
     
 
     server = smtplib.SMTP('smtp.gmail.com', 587)
@@ -30,18 +31,18 @@ def query_mail(name, email, text):
     
     # to the owner
     msg = EmailMessage()
-    msg['Subject'] = SUBJECT
+    msg['Subject'] = "User Query - Urgent Attention Required"
     msg['From'] = FROM
     msg['To'] = TO
-    msg.set_content(TEXT)
+    msg.set_content(OWNER_TEXT)
     server.send_message(msg)
 
     # to the user
     cust_msg = EmailMessage()
-    cust_msg['Subject'] = "Thank you for contacting us!"
+    cust_msg['Subject'] = "Update on Your Query - Resolution in Progress"
     cust_msg['From'] = TO
     cust_msg['To'] = FROM
-    cust_msg.set_content(f"Dear {name},\nThank you for contacting us.\nWe will get back to you soon.\n\nRegards,\nBayMexGPT Team")
+    cust_msg.set_content(query)
     server.send_message(cust_msg)
     server.quit()
 
@@ -129,10 +130,11 @@ def index_post():
         name = contactDet['name']
         email = contactDet['email']
         message = contactDet['message']
-        print(name, email, message)
-        query_mail(name, email, message)
+        prompt = f"Now, Make the mail when a user - {name} has some query regarding {message}, while he or she is getting some issues while using the Website. Now We need to provide him or her assurance that Don't worry we'll fix your problem in 2-3 working days. write in simple to understand and short to read. the sender's name is BaymexGPT BOT"
+        response = openai_prompt(prompt)
+        query_mail(name, email, response, message)
     
-    return render_template('index.html', username=current_user.username)
+    return render_template('index.html')
 
 
 

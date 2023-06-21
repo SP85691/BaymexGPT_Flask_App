@@ -12,13 +12,14 @@ sqlalchemy = "*"
 pydantic = "*"
 openai = "*"
 flask-mail = "*"
-passlib = "*"
+passlib = {extras = ["bcrypt"], version = "*"}
 werkzeug = "*"
-bcrypt = "*"
 flask-ngrok = "*"
 numpy = "*"
 opencv-python = "*"
 pyttsx3 = "*"
+dotenv-python = "*"
+python-dotenv = "*"
 
 [dev-packages]
 
