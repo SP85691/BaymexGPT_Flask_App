@@ -48,6 +48,7 @@ def query_mail(name, email, query, message):
 
     return "Success"
 
+
 @main.route('/')
 def index():
     return render_template('index.html')
@@ -129,6 +130,7 @@ def index_post():
         contactDet = request.json
         name = contactDet['name']
         email = contactDet['email']
+        phone = contactDet['phone']
         message = contactDet['message']
         prompt = f"Write a mail when a user - {name} has some query regarding {message}, while he or she is getting some issues while using the Website. Now We need to provide him or her assurance that Don't worry we'll fix your problem in 2-3 working days. write in simple to understand and short to read. the sender's name is BaymexGPT BOT. Some other details of our websites are: This Website works on two things first [generate images] and second is [chatbot facility]. Right it is free of cost. Application name - BaymexGPT. Owner Name - Surya Pratap"
         response = openai_prompt(prompt)
