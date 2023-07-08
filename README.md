@@ -2,7 +2,7 @@
 
 Welcome to the BaymexGPT Flask Web Application! This project combines the power of AI, web development, and user interaction to deliver an engaging and versatile web application. Whether you want to have a conversation with an intelligent chatbot or generate stunning images from text prompts, BaymexGPT has got you covered.
 
-![1685431483140](image/README/1685431483140.png)
+![image](https://github.com/SP85691/BaymexGPT_Flask_App/assets/86033489/eb097926-68ae-4ed2-b762-139504bafedb)
 
 ## Introduction
 
