@@ -203,9 +203,7 @@ def update_profile():
         upt_data = request.json
         username = upt_data['data']['username']
         user = User.query.filter_by(username=username).first()
-
         if user:
-            # update everything from the database such as profile_picture, bio, profession, college, country, phone, address, city and state
             user.profile_picture = upt_data['data']['image']
             user.bio = upt_data['data']['about']
             user.profession = upt_data['data']['profession']
@@ -216,9 +214,14 @@ def update_profile():
             user.city = upt_data['data']['city']
             user.state = upt_data['data']['state']
             user.pincode = upt_data['data']['pincode']
-            db.session.commit()
-            db.session.close()
-            return redirect(url_for('main.profile'))
+
+            print(upt_data)
+            try:
+                db.session.commit()
+                db.session.close()
+                return redirect(url_for('main.profile'))
+            except:
+                return redirect(url_for('auth.edit_profile'))
         
         else:
             return redirect(url_for('auth.edit_profile'))
