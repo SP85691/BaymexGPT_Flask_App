@@ -1,79 +1,196 @@
-{% extends 'base.html' %}
-{% block content %}
+{% extends 'base.html' %} {% block content %}
 <header class="text-gray-600 body-font bg-white shadow-lg border border-b-5">
-  <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
-    <a href="{{ url_for('main.index') }}" class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
-      <img class="w-11 h-10 text-white rounded-full" 
-          src="{{ url_for('static', filename=('assets/logo_2.png')) }}" alt="" srcset="">
+  <div
+    class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center"
+  >
+    <a
+      href="{{ url_for('main.index') }}"
+      class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0"
+    >
+      <img
+        class="w-11 h-10 text-white rounded-full"
+        src="{{ url_for('static', filename=('assets/logo_2.png')) }}"
+        alt=""
+        srcset=""
+      />
       <span class="ml-3 mt-1 text-xl pb-1 font-semibold">BaymexGPT</span>
     </a>
-    <nav class="md:ml-auto md:mr-auto flex flex-wrap items-center text-base justify-center">
-      <a href="{{ url_for('main.index') }}" class="mr-5 text-lg active hover:text-gray-900 font-semibold cursor-pointer">Home</a>
-      <a href="{{ url_for('main.about') }}" class="mr-5 text-lg hover:text-gray-900 hover:font-semibold cursor-pointer">About</a>
+    <nav
+      class="md:ml-auto md:mr-auto flex flex-wrap items-center text-base justify-center"
+    >
+      <a
+        href="{{ url_for('main.index') }}"
+        class="mr-5 text-lg active hover:text-gray-900 font-semibold cursor-pointer"
+        >Home</a
+      >
+      <a
+        href="{{ url_for('main.about') }}"
+        class="mr-5 text-lg hover:text-gray-900 hover:font-semibold cursor-pointer"
+        >About</a
+      >
       {% if current_user.is_authenticated %}
       <ul>
         <li>
-            <button id="dropdownNavbarLink" data-dropdown-toggle="dropdownNavbar1" class="mr-4 text-gray-600 text-lg hover:bg-gray-200 border-0  border-gray-500 md:hover:bg-transparent md:border-0 pl-3 pr-4 py-2 md:hover:text-gray-800 hover:font-semibold md:p-0 font-3xl flex items-center justify-between w-full md:w-auto">Playground<svg class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg></button>
-            <!-- Dropdown menu -->
-          <div id="dropdownNavbar1" class="hidden bg-gray-50 text-base z-10 list-none divide-y divide-gray-100 rounded shadow my-4 w-44">
-              <ul class="py-1" aria-labelledby="dropdownLargeButton">
-                <!-- <li>
+          <button
+            id="dropdownNavbarLink"
+            data-dropdown-toggle="dropdownNavbar1"
+            class="mr-4 text-gray-600 text-lg hover:bg-gray-200 border-0 border-gray-500 md:hover:bg-transparent md:border-0 pl-3 pr-4 py-2 md:hover:text-gray-800 hover:font-semibold md:p-0 font-3xl flex items-center justify-between w-full md:w-auto"
+          >
+            Playground<svg
+              class="w-4 h-4 ml-1"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                clip-rule="evenodd"
+              ></path>
+            </svg>
+          </button>
+          <!-- Dropdown menu -->
+          <div
+            id="dropdownNavbar1"
+            class="hidden bg-gray-50 text-base z-10 list-none divide-y divide-gray-100 rounded shadow my-4 w-44"
+          >
+            <ul class="py-1" aria-labelledby="dropdownLargeButton">
+              <!-- <li>
                   <a href="{{ url_for('main.playground') }}" class="text-lg hover:bg-gray-100 hover:font-semibold text-gray-700 block px-4 py-2">Playground</a>
               </li> -->
               <li>
-                  <a href="{{ url_for('main.chat') }}" class="text-lg hover:bg-gray-100 hover:font-semibold text-gray-700 block px-4 py-2">Chat</a>
+                <a
+                  href="{{ url_for('main.chat') }}"
+                  class="text-lg hover:bg-gray-100 hover:font-semibold text-gray-700 block px-4 py-2"
+                  >Chat</a
+                >
               </li>
               <li>
-                  <a href="{{ url_for('main.text_to_image') }}" class="text-lg hover:bg-gray-100 hover:font-semibold text-gray-700 block px-4 py-2">Image Generate</a>
+                <a
+                  href="{{ url_for('main.text_to_image') }}"
+                  class="text-lg hover:bg-gray-100 hover:font-semibold text-gray-700 block px-4 py-2"
+                  >Image Generate</a
+                >
               </li>
             </ul>
           </div>
-      </li>
-    </ul>
+        </li>
+      </ul>
       <ul>
-      <li>
-        <button id="dropdownNavbarLink" data-dropdown-toggle="dropdownNavbar" class="mr-4 text-gray-600 text-lg hover:bg-gray-200 border-2 border-gray-500 md:hover:bg-transparent md:border-0 pl-3 pr-4 py-2 md:hover:text-gray-800 hover:font-semibold md:p-0 font-3xl flex items-center justify-between w-full md:w-auto">Profile<svg class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg></button>
-        <!-- Dropdown menu -->
-        <div id="dropdownNavbar" class="hidden bg-gray-50 text-base z-10 list-none divide-y divide-gray-100 rounded shadow my-4 w-44">
+        <li>
+          <button
+            id="dropdownNavbarLink"
+            data-dropdown-toggle="dropdownNavbar"
+            class="mr-4 text-gray-600 text-lg hover:bg-gray-200 border-2 border-gray-500 md:hover:bg-transparent md:border-0 pl-3 pr-4 py-2 md:hover:text-gray-800 hover:font-semibold md:p-0 font-3xl flex items-center justify-between w-full md:w-auto"
+          >
+            Profile<svg
+              class="w-4 h-4 ml-1"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                clip-rule="evenodd"
+              ></path>
+            </svg>
+          </button>
+          <!-- Dropdown menu -->
+          <div
+            id="dropdownNavbar"
+            class="hidden bg-gray-50 text-base z-10 list-none divide-y divide-gray-100 rounded shadow my-4 w-44"
+          >
             <ul class="py-1" aria-labelledby="dropdownLargeButton">
-            <li>
-                <a href="{{ url_for('main.profile') }}" class="text-lg hover:bg-gray-100 hover:font-semibold text-gray-700 block px-4 py-2">Profile</a>
-            </li>
-            <li>
-                <a href="{{ url_for('auth.setting') }}" class="text-lg hover:bg-gray-100 hover:font-semibold text-gray-700 block px-4 py-2">Settings</a>
-            </li>
-          </ul>
+              <li>
+                <a
+                  href="{{ url_for('main.profile') }}"
+                  class="text-lg hover:bg-gray-100 hover:font-semibold text-gray-700 block px-4 py-2"
+                  >Profile</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{{ url_for('auth.setting') }}"
+                  class="text-lg hover:bg-gray-100 hover:font-semibold text-gray-700 block px-4 py-2"
+                  >Settings</a
+                >
+              </li>
+            </ul>
             <div class="py-1">
-              <a href="{{ url_for('auth.logout') }}" class="text-lg hover:bg-gray-100 hover:font-semibold text-gray-700 block px-4 py-2">Sign out</a>
+              <a
+                href="{{ url_for('auth.logout') }}"
+                class="text-lg hover:bg-gray-100 hover:font-semibold text-gray-700 block px-4 py-2"
+                >Sign out</a
+              >
             </div>
-        </div>
-    </li>
-  </ul>
-    <!-- <a href="{{ url_for('main.playground') }}" class="mr-5  hover:text-gray-900 hover:font-semibold cursor-pointer">Playground</a> -->
+          </div>
+        </li>
+      </ul>
+      <!-- <a href="{{ url_for('main.playground') }}" class="mr-5  hover:text-gray-900 hover:font-semibold cursor-pointer">Playground</a> -->
       {% endif %}
-    <a href="{{ url_for('main.contact') }}" class="text-lg hover:text-gray-900 hover:font-semibold cursor-pointer">Contact</a>
+      <a
+        href="{{ url_for('main.contact') }}"
+        class="text-lg hover:text-gray-900 hover:font-semibold cursor-pointer"
+        >Contact</a
+      >
     </nav>
     {% if not current_user.is_authenticated %}
-    <a href="{{ url_for('auth.login') }}"><button class="inline-flex mr-2 items-center bg-indigo-500 text-white border-0 p-2 px-3 focus:outline-none hover:bg-gray-200 hover:text-black rounded-md text-base mt-4 md:mt-0">Login
-      <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
-        <path d="M5 12h14M12 5l7 7-7 7"></path>
-      </svg>
-    </button></a>
-    <a href="{{ url_for('auth.signup') }}"><button class="inline-flex items-center border border-violet-500 text-black font-medium rounded-md p-2 px-3 focus:outline-none hover:bg-indigo-500 hover:text-white hover:shadow-lg text-base mt-4 md:mt-0">Register
-      <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
-        <path d="M5 12h14M12 5l7 7-7 7"></path>
-      </svg>
-    </button></a>
-    {% endif %}
-    {% if current_user.is_authenticated %}
-    <a href="{{ url_for('auth.logout') }}"><button class="inline-flex mr-2 items-center bg-indigo-500 text-white border-0 p-2 px-3 focus:outline-none hover:bg-gray-200 hover:text-black rounded-md text-base mt-4 md:mt-0">Logout
-      <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
-        <path d="M5 12h14M12 5l7 7-7 7"></path>
-      </svg>
-    </button></a>
+    <a href="{{ url_for('auth.login') }}"
+      ><button
+        class="inline-flex mr-2 items-center bg-indigo-500 text-white border-0 p-2 px-3 focus:outline-none hover:bg-gray-200 hover:text-black rounded-md text-base mt-4 md:mt-0"
+      >
+        Login
+        <svg
+          fill="none"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          class="w-4 h-4 ml-1"
+          viewBox="0 0 24 24"
+        >
+          <path d="M5 12h14M12 5l7 7-7 7"></path>
+        </svg></button
+    ></a>
+    <a href="{{ url_for('auth.signup') }}"
+      ><button
+        class="inline-flex items-center border border-violet-500 text-black font-medium rounded-md p-2 px-3 focus:outline-none hover:bg-indigo-500 hover:text-white hover:shadow-lg text-base mt-4 md:mt-0"
+      >
+        Register
+        <svg
+          fill="none"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          class="w-4 h-4 ml-1"
+          viewBox="0 0 24 24"
+        >
+          <path d="M5 12h14M12 5l7 7-7 7"></path>
+        </svg></button
+    ></a>
+    {% endif %} {% if current_user.is_authenticated %}
+    <a href="{{ url_for('auth.logout') }}"
+      ><button
+        class="inline-flex mr-2 items-center bg-indigo-500 text-white border-0 p-2 px-3 focus:outline-none hover:bg-gray-200 hover:text-black rounded-md text-base mt-4 md:mt-0"
+      >
+        Logout
+        <svg
+          fill="none"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          class="w-4 h-4 ml-1"
+          viewBox="0 0 24 24"
+        >
+          <path d="M5 12h14M12 5l7 7-7 7"></path>
+        </svg></button
+    ></a>
     {% endif %}
   </div>
 </header>
 <script src="../static/js/scripts.js"></script>
 <script src="https://unpkg.com/@themesberg/flowbite@1.1.1/dist/flowbite.bundle.js"></script>
-{% endblock %}  
+{% endblock %}

@@ -1,5 +1,5 @@
 from flask import Flask, render_template, session, redirect, url_for
-from flask_login import LoginManager, current_user
+from flask_login import LoginManager, current_user, login_required
 from flask_sqlalchemy import SQLAlchemy
 from datetime import timedelta
 from flask_admin import Admin
@@ -29,7 +29,7 @@ def create_app():
     login_manager.login_view = "auth.login"
     login_manager.init_app(app)
 
-    from .models import User, Chat
+    from .models import User, Chat, Contact
 
     # User loader function
     @login_manager.user_loader
@@ -44,6 +44,7 @@ def create_app():
     admin = Admin(app, name='Control Panel')
     admin.add_view(ModelView(User, db.session))
     admin.add_view(ModelView(Chat, db.session))
+    admin.add_view(ModelView(Contact, db.session))
     
     with app.app_context():
         db.create_all()

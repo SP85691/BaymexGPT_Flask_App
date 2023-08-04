@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, jsonify, redirect, url_for
 from flask_login import login_required, current_user, login_remembered
-from app.models import User, Chat
+from app.models import User, Chat, Contact
 from app import db
 import smtplib
 from email.message import EmailMessage
@@ -22,7 +22,7 @@ def query_mail(name, email, query, message):
     FROM = email
     TO = "s.pratap.4155@gmail.com"
     TEXT = query
-    OWNER_TEXT = f"Dear Sir,\nI hope this email finds you well. I wanted to bring to your attention a query we received from a user regarding their experience on our website. The user, [User's Name], has encountered an issue while using the website and has reached out for assistance.\n\nUser Details:\nName: [{name}\nEmail: {email}\nQuery: {message}\n\nWe understand the importance of providing prompt and effective support to our users. Rest assured, we are committed to resolving the user's problem within 2-3 working days. Our support team will thoroughly investigate the issue and work diligently to find a solution.\n\nWe kindly request your attention to this matter and any necessary action on your part. If there are any additional resources or expertise required, please let us know, and we will promptly address it.\n\nWe greatly appreciate your support and collaboration in ensuring the best user experience for our valued customers. We will keep you updated on the progress of resolving the user's query and provide any further information as needed.\n\nThank you for your prompt attention to this matter.\n\nBest regards,\nBaymexGPT BOT"
+    OWNER_TEXT = f"Dear Sir,\nI hope this email finds you well. I wanted to bring to your attention a query we received from a user regarding their experience on our website. The user, {name}, has encountered an issue while using the website and has reached out for assistance.\n\nUser Details:\nName: {name}\nEmail: {email}\nQuery: {message}\n\nWe kindly request your attention to this matter and any necessary action on your part. If there are any additional resources or expertise required, please let us know, and we will promptly address it.\n\nThank you for your prompt attention to this matter.\n\nBest regards,\nBaymexGPT BOT"
     
 
     server = smtplib.SMTP('smtp.gmail.com', 587)
@@ -81,11 +81,11 @@ def chat_response():
         else:
             input = msg
             response = openai_prompt(input)
+            print(response)
             new_chat = Chat(username=current_user.username, question=input, answer=response, user_id = current_user.id)
             db.session.add(new_chat)
             db.session.commit()
-            answer = response
-            return openai_prompt(input)
+            return openai_prompt(response)
         
 @main.route('/text_to_image')
 @login_required
@@ -133,8 +133,13 @@ def index_post():
         phone = contactDet['phone']
         message = contactDet['message']
         prompt = f"Write a mail when a user - {name} has some query regarding {message}, while he or she is getting some issues while using the Website. Now We need to provide him or her assurance that Don't worry we'll fix your problem in 2-3 working days. write in simple to understand and short to read. the sender's name is BaymexGPT BOT. Some other details of our websites are: This Website works on two things first [generate images] and second is [chatbot facility]. Right it is free of cost. Application name - BaymexGPT. Owner Name - Surya Pratap"
-        response = openai_prompt(prompt)
-        query_mail(name, email, response, message)
+        prompt_res = f"Hi {name}, I am sending you this from my personal website.\nI have received your query and will get back to you within 2-3 working days.\nThank you for your patience.\nBest Regards,\nBaymex BOT"
+
+        new_contact = Contact(name=name, email=email, phone=phone, message=message)
+        db.session.add(new_contact)
+        db.session.commit()
+        
+        query_mail(name, email, prompt_res, message)
     
     return render_template('index.html')
 

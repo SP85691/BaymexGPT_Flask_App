@@ -36,7 +36,6 @@ def mail(name, email):
     msg['To'] = TO
     msg.set_content(TEXT)
     server.send_message(msg)
-    # server.sendmail('support@baymexgpt.com', email, f"Dear {name},\nThank you for becoming a part of our family.\nYou have registered by this email id - {email}")
     server.quit()
 
     return "Success"
@@ -82,7 +81,6 @@ def delete_user_mail(name, email):
     msg['To'] = TO
     msg.set_content(TEXT)
     server.send_message(msg)
-    # server.sendmail('support@baymexgpt.com', email, f"Dear {name},\nThank you for becoming a part of our family.\nYou have registered by this email id - {email}")
     server.quit()
 
     return "Success"

@@ -13,17 +13,34 @@ OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
 def openai_prompt(question):
     openai.api_key = OPENAI_API_KEY
-    response = openai.Completion.create(
-            model="text-davinci-003",
-            prompt=question,
-            temperature=1,
-            max_tokens=1080,
-            top_p=1,
-            frequency_penalty=0.0,
-            presence_penalty=0.0,       
-            stop=[" Human:", " AI:"]
-            )
-    return response["choices"][0]["text"]
+    response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=[
+            {
+                "role": "user",
+                "content": str(question)
+            },
+        ],
+        temperature=1,
+        max_tokens=700,
+        top_p=1,
+        frequency_penalty=0,
+        presence_penalty=0
+    )
+     # Access the 'choices' field from the response
+    choices = response['choices']
+
+    # Get the 'message' field from the first item in 'choices'
+    if choices and 'message' in choices[0]:
+        message = choices[0]['message']
+
+        # Extract the content (response) from the 'message'
+        if 'content' in message:
+            content = message['content']
+            return content
+
+    # Return None if content not found
+    return None
 
 def text_to_image_converter(text):
         print(OPENAI_API_KEY)
@@ -38,3 +55,4 @@ def text_to_image_converter(text):
         im_arr = np.frombuffer(im_bytes, dtype=np.uint8)
         img = cv2.imdecode(im_arr, cv2.IMREAD_COLOR)
         cv2.imwrite(os.path.join("app/static/", "img.png"), img)
+        
